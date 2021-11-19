@@ -1,0 +1,16 @@
+Input: Room[][] representation of Maze
+Output: a list of positions from current to end of maze if such a path exists
+
+count <- 0
+for each Room in Room[][]
+    if Room is not permanently locked
+            bfs(Room)
+bfs(Room)
+count <- count + 1
+queue <- Room
+while queue is not empty
+    for each Room in Rooms[][] adjacent to front Room
+        if Room is not permanently locked 
+            count <- count + 1
+            queue <- Room
+        remove front Room from queue

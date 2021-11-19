@@ -1,8 +1,9 @@
 package com.company;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Maze {
+public class Maze implements Serializable {
 
     private Point myExit;
     private Point myPosition;
@@ -84,6 +85,10 @@ public class Maze {
     //figure out the traversal stuff in order to check if it is solvable
     boolean solvable(){
         return false;
+    }
+
+    Point getMyPosition() {
+        return myPosition;
     }
 
     //prints out the maze
