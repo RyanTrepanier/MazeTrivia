@@ -2,13 +2,18 @@ package com.company;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Maze implements Serializable {
 
-    private Point myExit;
+    
+	private static final long serialVersionUID = -7014945119444243061L;
+	private Point myExit;
     private Point myPosition;
     private Point myChoice;
     private Room[][] myMaze;
+
 
     public Maze() {
         myMaze = new Room[4][4];
@@ -40,14 +45,14 @@ public class Maze implements Serializable {
     }
 
     //choice would be from the scanner from main when choosing which rooms
-    void updateChoice(int choice){
-        if (choice == 0){               //move up
+    void updateChoice(final int theChoice){
+        if (theChoice == 0){               //move up
 //            myChoice = new Point(myPosition.x, (myPosition.y-1));
             myChoice.y = (myChoice.y-1);
-        } else if(choice == 1){         //move right
+        } else if(theChoice == 1){         //move right
 //            myChoice = new Point((myPosition.x+1), myPosition.y);
             myChoice.x = (myChoice.x+1);
-        } else if(choice == 2){         //move down
+        } else if(theChoice == 2){         //move down
 //            myChoice = new Point(myPosition.x, (myPosition.y+1));
             myChoice.y = (myChoice.y+1);
 
@@ -84,7 +89,37 @@ public class Maze implements Serializable {
 
     //figure out the traversal stuff in order to check if it is solvable
     boolean solvable(){
+    
         return false;
+    }
+    
+    ArrayList<Room> getNeighbors(final Room theCurrentRoom) {
+    	ArrayList<Room> neighbors = new ArrayList<>();
+    	Point currentPosition = myPosition;
+    	if (currentPosition.x == 0 && currentPosition.y == 0) {
+    		// south and east neighbors
+    		neighbors.add(myMaze[currentPosition.y - 1][currentPosition.x]);
+    		neighbors.add(myMaze[currentPosition.y][currentPosition.x + 1]);
+    	} else if (currentPosition.x == 0 && currentPosition.y == myMaze[0].length - 1) {
+    		// south and west neighbors
+    		neighbors.add(myMaze[currentPosition.y - 1][currentPosition.x]);
+    		neighbors.add(myMaze[currentPosition.y][currentPosition.x - 1]);
+    	} else if (currentPosition.y == 0 && currentPosition.x == myMaze.length - 1) {
+    		// north and east neighbors
+    		neighbors.add(myMaze[currentPosition.y + 1][currentPosition.x]);
+    		neighbors.add(myMaze[currentPosition.y][currentPosition.x + 1]);
+    	} else if (currentPosition.x == myMaze.length - 1 && currentPosition.y == myMaze[0].length - 1) {
+    		// north and west neighbors
+    		neighbors.add(myMaze[currentPosition.y + 1][currentPosition.x]);
+    		neighbors.add(myMaze[currentPosition.y][currentPosition.x - 1]);
+    	} else {
+    		// north, south, east, and west neighbors
+    		neighbors.add(myMaze[currentPosition.y + 1][currentPosition.x]);
+    		neighbors.add(myMaze[currentPosition.y - 1][currentPosition.x]);
+    		neighbors.add(myMaze[currentPosition.y][currentPosition.x + 1]);
+    		neighbors.add(myMaze[currentPosition.y][currentPosition.x - 1]);
+    	}
+    	return neighbors;
     }
 
     Point getMyPosition() {

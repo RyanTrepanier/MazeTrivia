@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Create by elijahreyes on 11/10/21.
  */
 public class Room implements Serializable {
+	
+	private boolean isVisited;
     private int myStatus;
 
     // 0 will represent an untouched status
@@ -16,6 +18,10 @@ public class Room implements Serializable {
     //standard getter method
     int getStatus(){
         return myStatus;
+    }
+    
+    boolean setVisitedStatus(boolean visit) {
+    	this.isVisited = visit;
     }
     
     // 1 represents opened room and 2 represents locked room
